@@ -8,6 +8,18 @@
   </div>
 </template>
 
+<script>
+import Heaeder from './components/Header.vue'
+import Footer from './components/Footer.vue'
+export default {
+  name: 'App',
+  components: {
+    Header,
+    Footer
+  }
+}
+</script>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
