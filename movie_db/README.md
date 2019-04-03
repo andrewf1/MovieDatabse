@@ -1,4 +1,4 @@
-# movie-database
+# movie_db
 
 ## Project setup
 ```
