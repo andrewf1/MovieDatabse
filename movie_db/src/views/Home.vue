@@ -3,7 +3,7 @@
     <div justify-center class="banner">
         <h1 class="head"> Movies For Everyone.</h1>
         <h2 class="second"> Millions of movies at your fingertips </h2>
-         <b-button href="/about">Sign Up</b-button>
+         <b-button to="signup">Sign Up</b-button>
     </div>
     <b-container fluid class="movies">
       <h1 class="subheader"> NEW ARRIVALS </h1>
