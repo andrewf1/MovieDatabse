@@ -6,7 +6,7 @@
     <b-form-group id="input-group-2" label="First name:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.firstname"
           required
           placeholder="Enter first name"
         > </b-form-input>
@@ -15,7 +15,7 @@
     <b-form-group id="input-group-2" label="Last Name:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.lastname"
           required
           placeholder="Enter last name"
         ></b-form-input>
@@ -39,7 +39,7 @@
       <b-form-group id="input-group-2" label="DOB:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.dob"
           required
           placeholder="YYYY/MM/DD"
         ></b-form-input>
@@ -48,7 +48,7 @@
        <b-form-group id="input-group-2" label="Address:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.address"
           required
           placeholder="Enter address"
         ></b-form-input>
@@ -57,7 +57,7 @@
        <b-form-group id="input-group-2" label="City" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.city"
           required
           placeholder="Enter City"
         ></b-form-input>
@@ -66,7 +66,7 @@
        <b-form-group id="input-group-2" label="State:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.state"
           required
           placeholder="Enter State"
         ></b-form-input>
@@ -75,7 +75,7 @@
        <b-form-group id="input-group-2" label="Zip Code:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.zipcode"
           required
           placeholder="Enter Zip Code"
         ></b-form-input>
@@ -84,7 +84,7 @@
        <b-form-group id="input-group-2" label="Password:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
+          v-model="form.password"
           required
           placeholder="Enter Password"
         ></b-form-input>
@@ -93,7 +93,6 @@
        <b-form-group id="input-group-2" label="Confirm Password:" label-for="input-2">
         <b-form-input
           id="input-2"
-          v-model="form.name"
           required
           placeholder="Confirm Password"
         ></b-form-input>
