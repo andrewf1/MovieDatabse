@@ -7,7 +7,9 @@ CREATE TABLE customer
 	email VARCHAR(50) NOT NULL,
 	dob DATE NOT NULL,
 	address VARCHAR(100) NOT NULL,
-	pass_word VARCHAR(30) NOT NULL CHECK (pass_word LIKE '%[0-9]%' AND pass_word LIKE '%[A-Z]%' AND 
+	pass_word VARCHAR(30) NOT NULL CHECK (pass_word LIKE '
+
+		%[0-9]%' AND pass_word LIKE '%[A-Z]%' AND 
 		pass_word LIKE '%[!@#$%a^&*()-_+=.,;:"`~]%' AND length(pass_word) >= 8 AND length(pass_word)
 		<= 30),
 	CONSTRAINT email_format CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
@@ -30,4 +32,6 @@ CREATE TABLE reward_member
 	points INT NOT NULL CHECK (points > 0),
 	PRIMARY KEY (rid),
 	FOREIGN KEY (rid) REFERENCES customer (uid)
+	ON UPDATE CASCADE
+	ON DELETE NO ACTION
 );
