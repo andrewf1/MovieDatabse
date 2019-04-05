@@ -139,7 +139,7 @@
         this.$nextTick(() => {
           this.show = true
         })
-      }
+      },
     }
   }
 </script>

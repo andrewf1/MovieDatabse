@@ -5,6 +5,36 @@
         <h2 class="second"> Millions of movies at your fingertips </h2>
          <b-button to="signup">Sign Up</b-button>
     </div>
+        <div class="login">
+            <h2>Login </h2>
+            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+            <b-form-group
+              id="input-group-1"
+              label="Email address:"
+              label-for="input-1"
+              description="We'll never share your email with anyone else."
+            >
+              <b-form-input
+                id="input-1"
+                v-model="form.email"
+                type="email"
+                required
+                placeholder="Enter email"
+              ></b-form-input>
+            </b-form-group>
+
+            <b-form-group id="input-group-2" label="Password:" label-for="input-2">
+              <b-form-input
+                id="input-2"
+                v-model="form.password"
+                required
+                placeholder="Enter password"
+              ></b-form-input>
+            </b-form-group>
+            <b-button type="submit" variant="primary">Login</b-button>
+          </b-form>
+
+    </div>
     <b-container fluid class="movies">
       <h1 class="subheader"> NEW ARRIVALS </h1>
 
@@ -39,13 +69,42 @@
       
 
     </b-container>
-    <div class="login">
-
-    </div>
-  
-
   </div>
 </template>
+
+<script>
+  export default {
+    data() {
+      return {
+        form: {
+          email: '',
+          password: '',
+          checked: []
+        },
+        show: true
+      }
+    },
+    methods: {
+      onSubmit(evt) {
+        evt.preventDefault()
+        alert(JSON.stringify(this.form))
+      },
+      onReset(evt) {
+        evt.preventDefault()
+        // Reset our form values
+        this.form.email = ''
+        this.form.name = ''
+        this.form.food = null
+        this.form.checked = []
+        // Trick to reset/clear native browser form validation state
+        this.show = false
+        this.$nextTick(() => {
+          this.show = true
+        })
+      }
+    }
+  }
+</script>
 
 
 <style scoped>
@@ -84,7 +143,7 @@
 
 .login{
   background-color: aliceblue;
-  min-height: 50vh;
+  min-height: 20vh;
 }
 
 .image{
@@ -98,6 +157,14 @@ height: 275px;
   font-family: 'Courier New', Courier, monospace;
   padding-top: 1.5vh;
   color: white;
+}
+
+.login{
+    padding-top: 20vh;
+    margin: 0 auto;
+    max-width: 800px;
+    position: relative;
+    padding-bottom: 20vh;
 }
 
 
