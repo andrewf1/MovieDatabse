@@ -17,7 +17,7 @@ public class HTTPServer implements Runnable{
 	static final String METHOD_NOT_FOUND = "not_supported.html";
 	
 	//port to listen to connection
-	static final int PORT = 8080; //This can be changed if my vue.js server is running on this port
+	static final int PORT = 8081; //This can be changed if my vue.js server is running on this port
 	
 	//verbose mode
 	static final boolean verbose = true;
