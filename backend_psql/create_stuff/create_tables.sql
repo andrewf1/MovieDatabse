@@ -7,11 +7,7 @@ CREATE TABLE customer
 	email VARCHAR(50) NOT NULL,
 	dob DATE NOT NULL,
 	address VARCHAR(100) NOT NULL,
-	pass_word VARCHAR(30) NOT NULL CHECK (pass_word LIKE '
-
-		%[0-9]%' AND pass_word LIKE '%[A-Z]%' AND 
-		pass_word LIKE '%[!@#$%a^&*()-_+=.,;:"`~]%' AND length(pass_word) >= 8 AND length(pass_word)
-		<= 30),
+	pass_word VARCHAR(32) NOT NULL,
 	CONSTRAINT email_format CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
 	PRIMARY KEY (uid)
 );
@@ -34,4 +30,19 @@ CREATE TABLE reward_member
 	FOREIGN KEY (rid) REFERENCES customer (uid)
 	ON UPDATE CASCADE
 	ON DELETE NO ACTION
+);
+
+CREATE TABLE purchase_history
+(
+	transaction_num INT NOT NULL DEFAULT NEXTVAL('transaction_num'),
+	uid INT NOT NULL,
+	mid INT NOT NULL,
+	return_date DATE,
+	due_date DATE NOT NULL,
+	date_rented DATE NOT NULL,
+	PRIMARY KEY (transaction_num),
+	FOREIGN KEY (uid) REFERENCES customer (uid)
+	ON UPDATE CASCADE ON DELETE NO ACTION,
+	FOREIGN KEY (mid) REFERENCES movie (mid)
+	ON UPDATE CASCADE ON DELETE NO ACTION
 );
