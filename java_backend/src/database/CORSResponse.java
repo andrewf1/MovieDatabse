@@ -1,13 +1,15 @@
 package database;
 
+import javax.ws.rs.container.ContainerResponseFilter;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.ResponseBuilder;
 
-import com.sun.jersey.spi.container.ContainerRequest;
-import com.sun.jersey.spi.container.ContainerResponse;
-import com.sun.jersey.spi.container.ContainerResponseFilter;
+import org.glassfish.jersey.server.ContainerRequest;
+import org.glassfish.jersey.server.ContainerResponse;
 
-public class CORSResponse implements ContainerResponseFilter {
+
+
+public class CORSResponse implements ContainerResponseFilter{
 
 	 @Override
 	    public ContainerResponse filter(ContainerRequest req, ContainerResponse contResp) {
