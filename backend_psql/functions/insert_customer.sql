@@ -20,18 +20,21 @@ improper_email integer := 1;
 email_exists integer  := 2;
 
 BEGIN
-	IF (SELECT COUNT(*) FROM customer where email = email_i) = 0 THEN
+	IF (SELECT COUNT(*) FROM customer where email = email_i) <> 0 THEN
 		RETURN email_exists; -- checks if the email exists
 	END IF;
 
-	insert into customer (fname, lname, email, dob, address, pass_word)
-	values (fname_i, lname_i, email_i, dob_i, address_i, pass_word_i);
-	GET DIAGNOSTICS row_change = ROW_COUNT;
+	IF (email_i ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$') THEN
+		insert into customer (fname, lname, email, dob, address, pass_word)
+		values (fname_i, lname_i, email_i, dob_i, address_i, pass_word_i);
+		GET DIAGNOSTICS row_change = ROW_COUNT;
 
-	IF row_change = 1 THEN
-		return successful;
-	ELSE
-		return improper_email;
-	END IF; 
+		IF row_change = 1 THEN
+			return successful;
+		ELSE
+			return improper_email;
+		END IF;
+	END IF;
+	return improper_email; 
 END;
 $BODY$;
