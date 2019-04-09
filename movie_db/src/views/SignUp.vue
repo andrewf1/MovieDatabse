@@ -130,9 +130,14 @@
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
+        this.form.firstname = ''
+        this.form.lastname = ''
         this.form.email = ''
-        this.form.name = ''
-        this.form.food = null
+        this.form.address = ''
+        this.form.city = ''
+        this.form.state = ''
+        this.form.zipcode = ''
+        this.form.password = ''
         this.form.checked = []
         // Trick to reset/clear native browser form validation state
         this.show = false

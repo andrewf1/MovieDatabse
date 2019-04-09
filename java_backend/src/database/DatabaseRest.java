@@ -17,13 +17,13 @@ import javax.ws.rs.core.Application;
 
 @Path("/test")
 public class DatabaseRest {
-	
-
+			
+						
 	@GET
 	@Produces(MediaType.TEXT_PLAIN)
 	@Path("{name}")
 	public String test(@Context HttpHeaders httpheaders, @PathParam("name") String name) {
-		String g ="Hello"+name;
+		String g ="Hello "+name;
 		
 		return g;
 		

@@ -8,12 +8,11 @@
       <param-name>jersey.config.property.packages</param-name>
       <param-value>database</param-value>
     </init-param>
-    <init-param>
+     <init-param>
    	  <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
-      <param-value>database.CorsResponse</param-value>
+      <param-value>database.CORSResponse</param-value>
   	</init-param>
     <load-on-startup>1</load-on-startup>
-   
   </servlet>
   <servlet-mapping>
     <servlet-name>jersey-servlet</servlet-name>
