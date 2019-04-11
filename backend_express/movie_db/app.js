@@ -4,17 +4,15 @@ const routes = require('./routes/signup')
 const app = express()
 const port = 3000
 
-const { Pool, Client } = require('pg')
-
 const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'movie_db',
-  password: 'spassword',
+  password: 'password',
   port: 5432,
 })
 
-pool.query('SELECT NOW()', (err, res) => {
+pool.query('SELECT * from movie where year = 2017', (err, res) => {
   console.log(err, res)
   pool.end()
 })
@@ -28,7 +26,7 @@ const client = new Client({
 })
 client.connect()
 
-client.query('SELECT NOW()', (err, res) => {
+client.query('SELECT * from movie', (err, res) => {
   console.log(err, res)
   client.end()
 })
