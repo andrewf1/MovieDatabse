@@ -8,7 +8,7 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'movie_db',
-  password: 'password',
+  password: '1234',
   port: 5432,
 })
 
@@ -21,7 +21,7 @@ const client = new Client({
   user: 'postgres',
   host: 'localhost',
   database: 'movie_db',
-  password: 'password',
+  password: '1234',
   port: 5432,
 })
 client.connect()
