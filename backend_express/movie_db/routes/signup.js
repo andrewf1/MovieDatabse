@@ -1,22 +1,22 @@
-const express = require('express');
-const router = express.Router();
+const express = require('express')
+// const bodyParser = require('body-parser')
+const router = express.Router()
+
 
 /*  Sign Up Page Handlers */
-router.get('/signup', function(req, res){
-  res.send({type: 'GET'})
-});
+ router.get('/', function(req,res){
+   res.send("Hello welcome to the signup page")
+ })
 
-//Add new customer to the db
-router.post('/signup', function(req, res){
-  res.send({type: 'POST'})
-});
+router.get('/about', function(req,res){
+  //console.log(req.body)
+  res.send(
+    // name: req.body.name,
+    // password: req.body.password
+    "Welcome Ashton"
+  )
+})
 
-router.get('/signup', function(req, res){
-  res.send({type: 'GET'})
-});
-
-router.get('/signup', function(req, res){
-  res.send({type: 'GET'})
-});
+router.post()
 
 module.exports = router;
