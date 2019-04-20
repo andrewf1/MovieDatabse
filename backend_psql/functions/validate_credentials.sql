@@ -2,7 +2,7 @@
 @brief: function that takes an email and a password as input and ensures that the email exists, and
 if it does, ensures the password given is the one associated with the email. It returns true, but 
 returns false if it fails
-usage: 
+usage: select validate_credentials from validate_credentials('email@email.com', 'password123');
 */
 CREATE OR REPLACE FUNCTION validate_credentials(email_i varchar, password_i varchar)
 	RETURNS boolean
