@@ -14,10 +14,10 @@ AS $BODY$
 DECLARE
 temprow RECORD;
 BEGIN
-	FOR temprow IN (select email, password from customers)
+	FOR temprow IN (select email, pass_word from customer)
 	LOOP	
 		IF temprow.email = email_i THEN
-			IF temprow.password = password_i THEN
+			IF temprow.pass_word = password_i THEN
 				return true;
 			END IF;
 		END IF;
