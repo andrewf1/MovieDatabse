@@ -1,5 +1,4 @@
 const express = require('express')
-// const bodyParser = require('body-parser')
 const router = express.Router()
 
 
@@ -9,14 +8,22 @@ const router = express.Router()
  })
 
 router.get('/about', function(req,res){
-  //console.log(req.body)
-  res.send(
-    // name: req.body.name,
-    // password: req.body.password
-    "Welcome Ashton"
-  )
+  res.send("Welcome Ashton")
 })
 
-router.post()
+router.post('/james', (req, res) =>{
+  res.send({
+    name: req.body.name
+  })
+})
+
+// router.post('/ashton',function(req,res){
+//   console.log("This function isnt working")
+//   console.log(req.body)
+//   res.send({
+//     name: req.body.name,
+//     password: req.body.password
+//   })
+// })
 
 module.exports = router;

@@ -2,13 +2,13 @@ const express = require('express')
 const { Pool, Client } = require('pg')
 const bodyParser = require('body-parser')
 const signup = require('./routes/signup')
-//const userRoute = require('./routes/users')
+const userRoute = require('./routes/users')
 const app = express()
 const port = 3000
 
 //Routes to be handled
 app.use('/signup', signup)
-//app.use(userRoute)
+app.use('/users', userRoute)
 
 //Body bodyParse
 //app.use(bodyParser.urlencoded({extended: false}))
@@ -51,9 +51,15 @@ app.post('/', (req, res) => {
   res.send({
     name: req.body.name,
     password: req.body.password
-  }
+  })
+})
 
-  )
+app.post('/signup/ashton',(req,res) => {
+  console.log("This is working")
+  res.send({
+    name: req.body.name,
+    password: req.body.password
+  })
 })
 
 
