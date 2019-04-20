@@ -63,8 +63,7 @@ app.post('/', (req, res) => {
 
 //Endpoint should recieve email and password from the frontend
 app.post('/login',(req, res) =>{
-  console.log("This is the request body" + req.body.email)
-   let ashton = req.body.email
+  console.log(req.body)
   client.query('Select * from validate_credentials ($1, $2)', [req.body.email, req.body.password], (err, res) => {
     console.log(err, res)
     //client.end()

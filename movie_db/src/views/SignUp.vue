@@ -112,6 +112,7 @@
           firstname: '',
           lastname: '',
           email: '',
+          dob: '',
           address: '',
           city: '',
           state: '',

@@ -7,7 +7,7 @@
     </div>
         <div class="login">
             <h2>Login </h2>
-            <b-form @submit="onSubmit" @reset="onReset" v-if="show">
+            <b-form @submit="onSubmit" v-if="show">
             <b-form-group
               id="input-group-1"
               label="Email address:"
@@ -73,6 +73,7 @@
 </template>
 
 <script>
+import axios from 'axios'
   export default {
     data() {
       return {
@@ -87,8 +88,11 @@
       onSubmit(evt) {
         evt.preventDefault()
         alert(JSON.stringify(this.form))
-
-      }
+        axios.post('http://localhost3000/login', {
+          email: this.form.email,
+          password: this.form.password
+        })
+      },
     }
   }
 </script>
