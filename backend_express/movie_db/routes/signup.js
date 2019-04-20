@@ -20,7 +20,7 @@ router.use(bodyParser.json())
  //   res.send("Hello welcome to the signup page")
  // })
 
-router.post('/', (req, res) =>{
+router.post('/', (req, res) => {
   console.log(req.body)
   const address = req.body.address + req.body.city + ', ' + req.body.state + req.body.zipcode
   const signup = [req.body.firstname, req.body.lastname, req.body.email, req.body.dob, address, req.body.password]

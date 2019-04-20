@@ -98,13 +98,14 @@
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary">Sign Up</b-button>
+      <b-button type="submit" variant="primary" @click="submit()">Sign Up</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
   export default {
     data() {
       return {
@@ -117,13 +118,18 @@
           city: '',
           state: '',
           zipcode: '',
-          password: '',
-          checked: []
+          password: ''
         },
         show: true
       }
     },
     methods: {
+      async submit(){
+        console.log("The submit function was called")
+        console.log(JSON.stringify(this.form))
+        axios.post('http://localhost:3000/signup', JSON.stringify(this.form))
+        console.log("This worked properly")
+      },
       onSubmit(evt) {
         evt.preventDefault()
         alert(JSON.stringify(this.form))
