@@ -1,4 +1,5 @@
 const express = require('express')
+const cors = require('cors')
 const { Pool, Client } = require('pg')
 const bodyParser = require('body-parser')
 const signup = require('./routes/signup')
@@ -11,8 +12,11 @@ app.use('/signup', signup)
 app.use('/users', userRoute)
 
 //Body bodyParse
-//app.use(bodyParser.urlencoded({extended: false}))
 app.use(bodyParser.json())
+//cors
+app.use(cors())
+
+//
 
 //Connection for the database
 const pool = new Pool({
@@ -43,7 +47,7 @@ client.query('SELECT * from movie', (err, res) => {
 })
 
 
-// Endpoints
+// Endpoint for the login page
 app.get('/', (req, res) => res.send('Hello World!'))
 
 app.post('/', (req, res) => {
@@ -54,30 +58,18 @@ app.post('/', (req, res) => {
   })
 })
 
-app.post('/signup/ashton',(req,res) => {
-  console.log("This is working")
-  res.send({
-    name: req.body.name,
-    password: req.body.password
+//Endpoint should recieve email and password from the frontend
+app.post('/login',(req, res) =>{
+  console.log(req.body.email)
+  console.log(req.body.password)
+  client.connet()
+  client.query('Select validate_credentials From validate_credentials(req.body.email, req.body.password)', (err, res) => {
+    console.log(err, res)
+    client.end()
   })
 })
 
 
-  // const login = {
-  //   name: req.body.name,
-  //   password: req.body.password
-  // } => res.send({
-  //   login: login
-  // })
-//
 
-// app.post('/',function(req, res){
-//   const login = {
-//     email: req.body.email,
-//     password: req.body.password
-//   }
-//   res.status(201).send(login)
-//
-// })
 //Listen for requests
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

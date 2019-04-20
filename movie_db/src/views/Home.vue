@@ -21,7 +21,7 @@
                 required
                 placeholder="Enter email"
               ></b-form-input>
-            </b-form-group>
+            </b-form-group> 
 
             <b-form-group id="input-group-2" label="Password:" label-for="input-2">
               <b-form-input
@@ -79,7 +79,6 @@
         form: {
           email: '',
           password: '',
-          checked: []
         },
         show: true
       }
@@ -88,18 +87,7 @@
       onSubmit(evt) {
         evt.preventDefault()
         alert(JSON.stringify(this.form))
-      },
-      onReset(evt) {
-        evt.preventDefault()
-        // Reset our form values
-        this.form.email = ''
-        this.form.password = ''
-        this.form.checked = []
-        // Trick to reset/clear native browser form validation state
-        this.show = false
-        this.$nextTick(() => {
-          this.show = true
-        })
+
       }
     }
   }
