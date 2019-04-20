@@ -2,7 +2,9 @@ const express = require('express')
 const router = express.Router()
 const bodyParser = require('body-parser')
 const { Pool, Client } = require('pg')
+const cors = require('cors')
 
+router.use(cors())
 const client = new Client({
   user: 'postgres',
   host: 'localhost',
@@ -22,7 +24,7 @@ router.use(bodyParser.json())
 
 router.post('/', (req, res) => {
   console.log(req.body)
-  const address = req.body.address + req.body.city + ', ' + req.body.state + req.body.zipcode
+  const address = (req.body.address).toString() + (req.body.city).toString() + ', ' + (req.body.state).toString() + (req.body.zipcode).toString()
   const signup = [req.body.firstname, req.body.lastname, req.body.email, req.body.dob, address, req.body.password]
   client.query('Select * from insert_customer ($1::varchar, $2::varchar, $3::varchar, $4::date, $5::varchar, $6::varchar)', signup, (err, res) => {
     if(err){
@@ -34,14 +36,5 @@ router.post('/', (req, res) => {
     //client.end()
   })
 })
-
-// router.post('/ashton',function(req,res){
-//   console.log("This function isnt working")
-//   console.log(req.body)
-//   res.send({
-//     name: req.body.name,
-//     password: req.body.password
-//   })
-// })
 
 module.exports = router;

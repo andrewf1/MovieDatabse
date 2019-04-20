@@ -126,8 +126,21 @@ import axios from 'axios'
     methods: {
       async submit(){
         console.log("The submit function was called")
-        console.log(JSON.stringify(this.form))
-        axios.post('http://localhost:3000/signup', JSON.stringify(this.form))
+        //console.log(JSON.stringify(this.form))
+        console.log("Lets get this form name playa")
+        console.log(this.form.firstname)
+        console.log("^^^^^ Should be the form name")
+        axios.post('http://localhost:3000/signup', {
+          fname: this.form.firstname,
+          lname: this.form.lastname,
+          email: this.form.email,
+          dob: this.form.dob,
+          address: this.form.address,
+          city: this.form.city,
+          state: this.form.state,
+          zipcode: this.form.zipcode,
+          password: this.form.password
+        })
         console.log("This worked properly")
       },
       onSubmit(evt) {
