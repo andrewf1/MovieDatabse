@@ -27,10 +27,10 @@ const pool = new Pool({
   port: 5432,
 })
 
-pool.query('SELECT * from movie where year = 2017', (err, res) => {
-  console.log(err, res)
-  pool.end()
-})
+// pool.query('SELECT * from movie where year = 2017', (err, res) => {
+//   console.log(err, res)
+//   pool.end()
+// })
 
 const client = new Client({
   user: 'postgres',
@@ -40,11 +40,14 @@ const client = new Client({
   port: 5432,
 })
 client.connect()
+.then(() => console.log("Database connected successfuly"))
+.catch(e => console.log("The error is" + e))
+// .finally(() => client.end())
 
-client.query('SELECT * from movie', (err, res) => {
-  console.log(err, res)
-  client.end()
-})
+// client.query('SELECT * from movie', (err, res) => {
+//   console.log(err, res)
+//   //client.end()
+// })
 
 
 // Endpoint for the login page
@@ -60,14 +63,40 @@ app.post('/', (req, res) => {
 
 //Endpoint should recieve email and password from the frontend
 app.post('/login',(req, res) =>{
-  console.log(req.body.email)
-  console.log(req.body.password)
-  client.connet()
-  client.query('Select validate_credentials From validate_credentials(req.body.email, req.body.password)', (err, res) => {
+  console.log("This is the request body" + req.body.email)
+   let ashton = req.body.email
+  client.query('Select * from validate_credentials ($1, $2)', [req.body.email, req.body.password], (err, res) => {
     console.log(err, res)
-    client.end()
+    //client.end()
   })
 })
+
+// app.post('/login', (req, res) => {
+//   console.log("This is the request body " + req.body.email)
+//   // callback
+//
+//   const text = 'Select * from Customer where email = $1'
+//   const values = ['ashtonrodriquez@hotmail.com']
+//
+//   client.query(text, values, (err, res) => {
+//     if (err) {
+//       console.log(err.stack)
+//     } else {
+//       console.log(res.rows[0])
+//       // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+//     }
+//   })
+//
+//   // promise
+//   client.query(text, values)
+//     .then(res => {
+//       console.log(res.rows[0])
+//       // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
+//     })
+//     .catch(e => console.error(e.stack))
+//     client.end()
+//
+// })
 
 
 
