@@ -98,7 +98,7 @@ import { stringify } from 'querystring';
         })
         .then(response => {
 
-          console.log(stringify(response))
+          //console.log(stringify(response))
           if(response.data == this.res2){
             alert("Your email or password is incorrect")
           }

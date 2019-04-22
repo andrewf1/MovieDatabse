@@ -107,7 +107,6 @@
 
 <script>
 import axios from 'axios'
-import { stringify } from 'querystring';
   export default {
     data() {
       return {
@@ -136,7 +135,7 @@ import { stringify } from 'querystring';
         evt.preventDefault()
 
         if(this.form.password.match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$")){
-          alert("Your password must be atleast 8 characters long")
+          alert("Your password must be atleast 8 characters long and contain a letter and number")
         }
 
         else if(this.form.password !== this.form.confirmpassword){
@@ -158,8 +157,8 @@ import { stringify } from 'querystring';
               password: this.form.password
             })
             .then(response => {
-              console.log("This is the backend response " + response)
-              console.log("This is the data " + this.data0)
+              //console.log("This is the backend response " + response)
+              //console.log("This is the data " + this.data0)
               switch(response.data){
                 case this.data0: 
                   alert("User account successfuly created")
@@ -172,9 +171,7 @@ import { stringify } from 'querystring';
                   break
               }
             })
-          
-          
-          console.log("This worked properly")
+          //console.log("This worked properly")
         }
 
       },
