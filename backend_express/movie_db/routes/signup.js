@@ -16,13 +16,6 @@ const client = new Client({
 client.connect()
 .then(() => console.log("Database connected successfuly for users"))
 
-
-
-/*  Sign Up Page Handlers */
- // router.get('/', function(req,res){
- //   res.send("Hello welcome to the signup page")
- // })
-
 //This end point will handle adding new users to the datbase
 router.post('/', (req, res) => {
 

@@ -104,7 +104,7 @@ import { stringify } from 'querystring';
           }
 
           else 
-            this.$router.push({path : 'signup'})
+            this.$router.push({path : 'moviecatalog'})
 
         })
 
