@@ -81,7 +81,7 @@
         ></b-form-input>
       </b-form-group>
 
-       <b-form-group id="input-group-2" label="Password:" label-for="input-2">
+       <b-form-group id="input-group-2" label="Password:" type="password" label-for="input-2">
         <b-form-input
           id="input-2"
           v-model="form.password"
@@ -93,12 +93,13 @@
        <b-form-group id="input-group-2" label="Confirm Password:" label-for="input-2">
         <b-form-input
           id="input-2"
+          v-model="form.confirmpassword"
           required
           placeholder="Confirm Password"
         ></b-form-input>
       </b-form-group>
 
-      <b-button type="submit" variant="primary" @click="submit()">Sign Up</b-button>
+      <b-button type="submit" variant="primary">Sign Up</b-button>
       <b-button type="reset" variant="danger">Reset</b-button>
     </b-form>
   </div>
@@ -118,36 +119,69 @@ import axios from 'axios'
           city: '',
           state: '',
           zipcode: '',
-          password: ''
+          password: '',
+          confirmpassword: ''
         },
         show: true
       }
     },
     methods: {
-      async submit(){
-        console.log("The submit function was called")
-        console.log(JSON.stringify(this.form))
-        console.log("Lets get this form name playa")
-        console.log(this.form.firstname)
-        console.log("^^^^^ Should be the form name")
-        axios.post('http://localhost:3000/signup', 
-        {
-          firstname: this.form.firstname,
-          lastname: this.form.lastname,
-          email: this.form.email,
-          dob: this.form.dob,
-          address: this.form.address,
-          city: this.form.city,
-          state: this.form.state,
-          zipcode: this.form.zipcode,
-          password: this.form.password
-        }
-        )
-        console.log("This worked properly")
-      },
+      // async submit(){
+
+      //   if(!this.form.password.match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$")){
+      //     alert("Your password must be atleast 8 characters long")
+          
+      //   }
+
+      //   else if(this.form.password != this.form.confirmpassword){
+      //     alert("Your password dooes not match")
+      //   }
+
+      //   else {
+      //     axios.post('http://localhost:3000/signup', 
+      //     {
+      //       firstname: this.form.firstname,
+      //       lastname: this.form.lastname,
+      //       email: this.form.email,
+      //       dob: this.form.dob,
+      //       address: this.form.address,
+      //       city: this.form.city,
+      //       state: this.form.state,
+      //       zipcode: this.form.zipcode,
+      //       password: this.form.password
+      //     }
+      //     )
+      //     console.log("This worked properly")
+      // }
+      // },
       onSubmit(evt) {
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
+
+        if(this.form.password.match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$")){
+          alert("Your password must be atleast 8 characters long")
+        }
+
+        else if(this.form.password !== this.form.confirmpassword){
+          alert("Your passwords do not match")
+        }
+
+        else{
+           axios.post('http://localhost:3000/signup', 
+          {
+            firstname: this.form.firstname,
+            lastname: this.form.lastname,
+            email: this.form.email,
+            dob: this.form.dob,
+            address: this.form.address,
+            city: this.form.city,
+            state: this.form.state,
+            zipcode: this.form.zipcode,
+            password: this.form.password
+          }
+          )
+          console.log("This worked properly")
+        }
+
       },
       onReset(evt) {
         evt.preventDefault()
@@ -160,6 +194,7 @@ import axios from 'axios'
         this.form.state = ''
         this.form.zipcode = ''
         this.form.password = ''
+        this.form.confirmpassword = ''
         this.form.checked = []
         // Trick to reset/clear native browser form validation state
         this.show = false
