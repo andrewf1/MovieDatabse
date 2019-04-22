@@ -74,9 +74,12 @@
 
 <script>
 import axios from 'axios'
+import { stringify } from 'querystring';
   export default {
     data() {
       return {
+        res1: true,
+        res2: false,
         form: {
           email: '',
           password: '',
@@ -87,11 +90,25 @@ import axios from 'axios'
     methods: {
       onSubmit(evt) {
         evt.preventDefault()
-        alert(JSON.stringify(this.form))
-        axios.post('http://localhost3000/login', {
+        
+        axios
+        .post('http://localhost:3000/login', {
           email: this.form.email,
           password: this.form.password
         })
+        .then(response => {
+
+          console.log(stringify(response))
+          if(response.data == this.res2){
+            alert("Your email or password is incorrect")
+          }
+
+          else 
+            this.$router.push({path : 'signup'})
+
+        })
+
+
       },
     }
   }

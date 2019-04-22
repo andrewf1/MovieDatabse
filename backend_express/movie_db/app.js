@@ -62,41 +62,25 @@ app.post('/', (req, res) => {
 })
 
 //Endpoint should recieve email and password from the frontend
-app.post('/login',(req, res) =>{
+app.post('/login',(req, res) => {
   console.log(req.body)
-  client.query('Select * from validate_credentials ($1, $2)', [req.body.email, req.body.password], (err, res) => {
-    console.log(err, res)
+  client.query('Select * from validate_credentials ($1, $2)', [req.body.email, req.body.password], (err, result) => {
+    console.log("This is the results from the db " + result.rows[0].validate_credentials)
+    if(err){
+      console.log(err)
+    }
+
+    else{
+      if(result.rows[0].validate_credentials == true)
+        res.send('true')
+      else {
+        res.send('false')
+      }
+
+    }
     //client.end()
   })
 })
-
-// app.post('/login', (req, res) => {
-//   console.log("This is the request body " + req.body.email)
-//   // callback
-//
-//   const text = 'Select * from Customer where email = $1'
-//   const values = ['ashtonrodriquez@hotmail.com']
-//
-//   client.query(text, values, (err, res) => {
-//     if (err) {
-//       console.log(err.stack)
-//     } else {
-//       console.log(res.rows[0])
-//       // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
-//     }
-//   })
-//
-//   // promise
-//   client.query(text, values)
-//     .then(res => {
-//       console.log(res.rows[0])
-//       // { name: 'brianc', email: 'brian.m.carlson@gmail.com' }
-//     })
-//     .catch(e => console.error(e.stack))
-//     client.end()
-//
-// })
-
 
 
 //Listen for requests
