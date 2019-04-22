@@ -28,8 +28,7 @@ CREATE TABLE reward_member
 	email VARCHAR(50) NOT NULL, 
 	points INT NOT NULL CHECK (points > 0),
 	PRIMARY KEY (rid),
-	FOREIGN KEY (rid) REFERENCES customer (uid),
-	FOREIGN KEY (email) REFERENCES customer (email),
+	FOREIGN KEY (rid, email) REFERENCES customer (uid, email)
 	ON UPDATE CASCADE
 	ON DELETE NO ACTION
 );
