@@ -23,18 +23,34 @@ client.connect()
  //   res.send("Hello welcome to the signup page")
  // })
 
+//This end point will handle adding new users to the datbase
 router.post('/', (req, res) => {
-  
+
   console.log(req.body)
   const address = req.body.address + req.body.city + ', ' + req.body.state + req.body.zipcode
   const signup = [req.body.firstname, req.body.lastname, req.body.email, req.body.dob, address, req.body.password]
-  client.query('Select * from insert_customer ($1::varchar, $2::varchar, $3::varchar, $4::date, $5::varchar, $6::varchar)', signup, (err, res) => {
-  console.log("This is the response " + res)
+  client.query('Select * from insert_customer ($1::varchar, $2::varchar, $3::varchar, $4::date, $5::varchar, $6::varchar)', signup, (err, results) => {
+  console.log("This is the response " + results)
+  console.log("This is the results " + results.rows[0].insert_customer)
     if(err){
       console.log(err.stack)
     }
     else{
-      console.log(res)
+      switch(results.rows[0].insert_customer){
+
+        //Successfully added to database
+        case 0:
+          res.send('0')
+          break
+        //Improper email
+        case 1:
+          res.send('1')
+          break
+        //Email already exists.
+        case 2:
+          res.send('2')
+          break
+      }
     }
     //client.end()
   })

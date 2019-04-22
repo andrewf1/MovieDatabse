@@ -107,9 +107,13 @@
 
 <script>
 import axios from 'axios'
+import { stringify } from 'querystring';
   export default {
     data() {
       return {
+        data0: 0,
+        data1: 1,
+        data2: 2,
         form: {
           firstname: '',
           lastname: '',
@@ -122,38 +126,12 @@ import axios from 'axios'
           password: '',
           confirmpassword: ''
         },
+
         show: true
       }
     },
     methods: {
-      // async submit(){
-
-      //   if(!this.form.password.match("^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$")){
-      //     alert("Your password must be atleast 8 characters long")
-          
-      //   }
-
-      //   else if(this.form.password != this.form.confirmpassword){
-      //     alert("Your password dooes not match")
-      //   }
-
-      //   else {
-      //     axios.post('http://localhost:3000/signup', 
-      //     {
-      //       firstname: this.form.firstname,
-      //       lastname: this.form.lastname,
-      //       email: this.form.email,
-      //       dob: this.form.dob,
-      //       address: this.form.address,
-      //       city: this.form.city,
-      //       state: this.form.state,
-      //       zipcode: this.form.zipcode,
-      //       password: this.form.password
-      //     }
-      //     )
-      //     console.log("This worked properly")
-      // }
-      // },
+      //This is to verify passwords and also send users information back to the back end
       onSubmit(evt) {
         evt.preventDefault()
 
@@ -166,23 +144,41 @@ import axios from 'axios'
         }
 
         else{
-           axios.post('http://localhost:3000/signup', 
-          {
-            firstname: this.form.firstname,
-            lastname: this.form.lastname,
-            email: this.form.email,
-            dob: this.form.dob,
-            address: this.form.address,
-            city: this.form.city,
-            state: this.form.state,
-            zipcode: this.form.zipcode,
-            password: this.form.password
-          }
-          )
+           axios
+           .post('http://localhost:3000/signup', 
+            {
+              firstname: this.form.firstname,
+              lastname: this.form.lastname,
+              email: this.form.email,
+              dob: this.form.dob,
+              address: this.form.address,
+              city: this.form.city,
+              state: this.form.state,
+              zipcode: this.form.zipcode,
+              password: this.form.password
+            })
+            .then(response => {
+              console.log("This is the backend response " + response)
+              console.log("This is the data " + this.data0)
+              switch(response.data){
+                case this.data0: 
+                  alert("User account successfuly created")
+                  break
+                case this.data1:
+                  alert("The email you entered was inccorect")
+                  break
+                case this.data2:
+                  alert("The email you entered already exist")
+                  break
+              }
+            })
+          
+          
           console.log("This worked properly")
         }
 
       },
+//Resets the form
       onReset(evt) {
         evt.preventDefault()
         // Reset our form values
