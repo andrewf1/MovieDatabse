@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION insert_reward_member(uid_i int, points_i int)
-RETURNS boolean
+RETURNS integer
 LANGUAGE 'plpgsql'
 volatile
 SECURITY DEFINER
@@ -11,10 +11,6 @@ BEGIN
 	INSERT INTO reward_member (uid, points) values (uuid_i, points_i);
 	GET DIAGNOSTICS row_change = ROW_COUNT;
 
-	IF row_change = 1 THEN
-		return true;
-	ELSE
-		return false;
-	END IF;
+	return row_change;
 END;
 $BODY$;
