@@ -15,3 +15,15 @@ const client = new Client({
 })
 client.connect()
 .then(() => console.log("Database connected successfuly for movie catalog"))
+
+//Responsible for adding movies to the shopping cart
+router.put('/', (req, res) => {
+  console.log("This function was successfuly hit")
+  const movie = [req.body.env.mid]
+  client.query('Select * from insert_shopping_cart($1::integer)', movie, (err, result) => {
+    console.log(result)
+  })
+
+})
+
+module.exports = router;

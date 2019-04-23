@@ -4,12 +4,14 @@ const { Pool, Client } = require('pg')
 const bodyParser = require('body-parser')
 const signup = require('./routes/signup')
 const userRoute = require('./routes/users')
+const catalog = require('./routes/moviecatalog')
 const app = express()
 const port = 3000
 
 //Routes to be handled
 app.use('/signup', signup)
 app.use('/users', userRoute)
+app.use('/moviecatalog', catalog)
 
 //Body bodyParse
 app.use(bodyParser.json())
