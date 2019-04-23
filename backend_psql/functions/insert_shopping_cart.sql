@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION insert_shopping_cart (mid_i integer)
-	RETURN integer
+	RETURNS integer
 	LANGUAGE 'plpgsql'
 	volatile
 	SECURITY DEFINER
