@@ -1,7 +1,6 @@
 -- this file contains the sql to create the tables for the database
 CREATE TABLE customer
 (
-	uid INT NOT NULL DEFAULT NEXTVAL('uid'),
 	fname VARCHAR(15) NOT NULL,
 	lname VARCHAR(20) NOT NULL,
 	email VARCHAR(50) NOT NULL,
@@ -9,7 +8,7 @@ CREATE TABLE customer
 	address VARCHAR(100) NOT NULL,
 	pass_word VARCHAR(32) NOT NULL,
 	CONSTRAINT email_format CHECK (email ~* '^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+[.][A-Za-z]+$'),
-	PRIMARY KEY (uid, email)
+	PRIMARY KEY (email)
 );
 
 CREATE TABLE movie
@@ -24,11 +23,10 @@ CREATE TABLE movie
 
 CREATE TABLE reward_member
 (
-	rid INT NOT NULL,
 	email VARCHAR(50) NOT NULL, 
 	points INT NOT NULL CHECK (points > 0),
-	PRIMARY KEY (rid),
-	FOREIGN KEY (rid, email) REFERENCES customer (uid, email)
+	PRIMARY KEY (email),
+	FOREIGN KEY (email) REFERENCES customer (email)
 	ON UPDATE CASCADE
 	ON DELETE NO ACTION
 );
@@ -36,14 +34,13 @@ CREATE TABLE reward_member
 CREATE TABLE purchase_history
 (
 	transaction_num INT NOT NULL DEFAULT NEXTVAL('transaction_num'),
-	uid INT NOT NULL,
 	email VARCHAR(50) NOT NULL, 
 	mid INT NOT NULL,
 	return_date DATE,
 	due_date DATE NOT NULL,
 	date_rented DATE NOT NULL,
 	PRIMARY KEY (transaction_num),
-	FOREIGN KEY (uid, email) REFERENCES customer (uid, email)
+	FOREIGN KEY (email) REFERENCES customer (email)
 	ON UPDATE CASCADE ON DELETE NO ACTION,
 	FOREIGN KEY (mid) REFERENCES movie (mid)
 	ON UPDATE CASCADE ON DELETE NO ACTION
