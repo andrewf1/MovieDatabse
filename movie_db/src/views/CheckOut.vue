@@ -1,31 +1,32 @@
 <template>
-    <div class="background">
+    <div class="background" align="center">
         <div>
             <h1 class="header"> Checkout page </h1>
             <h2> Every movie is $5.99 </h2>
          </div>
+        
+         <div class="cards"> 
+             <ul>
+             <li v-for="(movie, key, value) in movies"> 
+                 {{movie}} - {{key}} - {{value}}
 
-         <div>
-             <b-card
-                title=:id="movie.title"
+                 
+              <!-- <b-card 
+                :title="x.title" 
+                :sub-title="x.stock"
                 img-src="https://picsum.photos/600/300/?image=25"
                 img-alt="Image"
                 img-top
                 tag="article"
                 style="max-width: 20rem;"
-                class="mb-2"
-            >
-    <b-card-text>
-      Some quick example text to build on the card title and make up the bulk of the card's content.
-    </b-card-text>
-
-    <b-button href="#" variant="primary">Go somewhere</b-button>
-  </b-card>
-
+                class="mb-2">
+            <b-button href="#" variant="primary">Remove from cart</b-button>
+            </b-card>  -->
+             </li>
+             </ul>
          </div>
 
-    </div>
-
+         
     </div>
 </template>
 
@@ -34,11 +35,11 @@ import axios from 'axios'
   export default {
     data() {
       return {
-        movies: {
-          title: '',
-          stock: '',
-          price: '$5.99'
-        },
+        movies: [
+            {
+                
+            }
+        ]
       }
     },
     methods: {},
@@ -46,10 +47,30 @@ import axios from 'axios'
     mounted: function(){
         console.log("Mounted worked properly")
         axios.get('http://localhost:3000/moviecatalog/shoppingcart')
-            .then(respoonse => {
-                console.log(respoonse.data)
-                this.movie.title = response.data.name
-                this.movie.stock = response.data.stock
+            .then(response => {
+                console.log(response.data)
+                console.log("This is the title ...." + response.data.rows[0].title_r)
+                console.log("This is the stock ... " + response.data.rows[0].stock_r)
+                
+               
+            for (let x = 0; x < response.data.length; x++){
+
+                for(let y = 0; y < response.data.rows.length; y++){
+                
+                    this.movies.title = response.data.rows[x][y].title_r
+                    this.movies.stock = response.data.rows[x][y].stock_r
+                }
+
+            }
+             for (let x = 0; x < response.data.rows.length; x++){
+                //  console.log('This is the value of x' + x)
+                 console.log(response.data.rows[x].title_r)
+
+            }
+
+            console.log(response.data.rows.map(i => i.title_r));
+                // this.movies.title = response.data.rows[0].title_r
+                // this.movies.stock = response.data.rows[0].stock_r
             })
     }
     
@@ -66,6 +87,11 @@ import axios from 'axios'
 
 .background{
     background-color: aqua;
+}
+
+.cards{
+    padding: 2vm;
+    align-self: center;
 }
 
 
