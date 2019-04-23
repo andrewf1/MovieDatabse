@@ -9,7 +9,7 @@
               
              <li v-for="movie in movies" class="drop">
                  {{movie.title}} - {{movie.stock}}
-                 <b-button size="sm"> Remove from cart </b-button>
+                 <b-button v-on:click="onRemove" size="sm"> Remove from cart </b-button>
             </li>
     
 
@@ -30,22 +30,28 @@ import axios from 'axios'
         movies: []
       }
     },
-    methods: {},
+    methods: {
+        onRemove: function (){
+            console.log(this.movie.mid)
+            axios.post('http://localhost:3000/moviecatalog/delete', {mid: this.movies.mid})
+                 .then(response => {
+                     if(response.data === 1){
+                         alert("Successfully deleted from shopping cart")
+                     }
+
+                     if(response.data === 0){
+                         alert("Removal unsuccessful")
+                     }
+                 })
+        }
+    },
 
     mounted: function(){
-        console.log("Mounted worked properly")
         axios.get('http://localhost:3000/moviecatalog/shoppingcart')
-            .then(response => {
-                console.log(response.data)
-                console.log("This is the title ...." + response.data.rows[0].title_r)
-                console.log("This is the stock ... " + response.data.rows[0].stock_r)
-                
-               
+            .then(response => {            
             for (let x = 0; x < response.data.rows.length; x++) {
                 this.movies.push({'title': response.data.rows[x].title_r, 'stock': response.data.rows[x].stock_r, 'mid': response.data.rows[x].mid_r })
-                console.log(this.movies.mid)
             }
-             
         })
     }
     

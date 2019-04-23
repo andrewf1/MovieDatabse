@@ -34,4 +34,13 @@ router.get('/shoppingcart', (req, res) => {
   })
 })
 
+router.post('/delete', (req, res) => {
+  const mid = [req.body.mid]
+  console.log(req.body.mid)
+  client.query('Select * from delete_shopping_cart($1::integer)', mid , (err, result) => {
+    console.log(result)
+    res.send(result)
+  })
+})
+
 module.exports = router;
