@@ -13,6 +13,6 @@ AS $BODY$
 DECLARE
 
 BEGIN
-	return query select title, stock, mid_r from movie natural join shopping_cart;
+	return query select title, stock, mid from movie natural join shopping_cart;
 END;
 $BODY$;
