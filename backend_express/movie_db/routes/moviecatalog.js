@@ -26,4 +26,12 @@ router.put('/', (req, res) => {
 
 })
 
+//Responsoble for obtaining items from the shopping cart
+router.get('/shoppingcart', (req, res) => {
+  client.query('Select * from get_all_shopping_cart()', (err, result) => {
+    console.log(result)
+    res.send(result)
+  })
+})
+
 module.exports = router;
