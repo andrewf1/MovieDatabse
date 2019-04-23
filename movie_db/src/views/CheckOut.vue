@@ -6,9 +6,8 @@
          </div>
         
          <div class="cards"> 
-             <ul>
-             <li v-for="(movie, key, value) in movies"> 
-                 {{movie}} - {{key}} - {{value}}
+             <!-- <ul> -->
+             <li v-for="movie in movies">{{movie}}</li>
 
                  
               <!-- <b-card 
@@ -22,8 +21,8 @@
                 class="mb-2">
             <b-button href="#" variant="primary">Remove from cart</b-button>
             </b-card>  -->
-             </li>
-             </ul>
+             <!-- </li> -->
+             <!-- </ul> -->
          </div>
 
          
@@ -35,11 +34,7 @@ import axios from 'axios'
   export default {
     data() {
       return {
-        movies: [
-            {
-                
-            }
-        ]
+        movies: []
       }
     },
     methods: {},
@@ -53,17 +48,15 @@ import axios from 'axios'
                 console.log("This is the stock ... " + response.data.rows[0].stock_r)
                 
                
-            for (let x = 0; x < response.data.length; x++){
+            for (let x = 0; x < response.data.rows.length; x++) {
+                // let obj = { title: response.data.rows[x].title_r, stock: response.data.rows[x].stock_r}
 
-                for(let y = 0; y < response.data.rows.length; y++){
-                
-                    this.movies.title = response.data.rows[x][y].title_r
-                    this.movies.stock = response.data.rows[x][y].stock_r
-                }
-
+                this.movies.push({'title': response.data.rows[x].title_r, 'stock': response.data.rows[x].stock_r })
+                console.log(this.movies)
             }
              for (let x = 0; x < response.data.rows.length; x++){
                 //  console.log('This is the value of x' + x)
+                this.movies.title = response.data
                  console.log(response.data.rows[x].title_r)
 
             }
