@@ -6,24 +6,17 @@
          </div>
         
          <div class="cards"> 
-             <!-- <ul> -->
-             <li v-for="movie in movies">{{movie}}</li>
+              
+             <li v-for="movie in movies" class="drop">
+                 {{movie.title}} - {{movie.stock}}
+                 <b-button size="sm"> Remove from cart </b-button>
+            </li>
+    
 
-                 
-              <!-- <b-card 
-                :title="x.title" 
-                :sub-title="x.stock"
-                img-src="https://picsum.photos/600/300/?image=25"
-                img-alt="Image"
-                img-top
-                tag="article"
-                style="max-width: 20rem;"
-                class="mb-2">
-            <b-button href="#" variant="primary">Remove from cart</b-button>
-            </b-card>  -->
-             <!-- </li> -->
-             <!-- </ul> -->
+             <b-button> Checkout </b-button>
          </div>
+
+
 
          
     </div>
@@ -85,6 +78,11 @@ import axios from 'axios'
 .cards{
     padding: 2vm;
     align-self: center;
+}
+
+.drop{
+    padding: 30vm;
+    font-family: 'Courier New', Courier, monospace;
 }
 
 
