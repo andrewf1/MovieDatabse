@@ -5,15 +5,28 @@
             <h2> Every movie is $5.99 </h2>
          </div>
         
-         <div class="cards"> 
-              
-             <li v-for="movie in movies" class="drop">
-                 {{movie.title}} - {{movie.stock}}
-                 <b-button v-on:click="onRemove" size="sm"> Remove from cart </b-button>
-            </li>
-    
+         <div class="cards" align="center"> 
+             <li v-for="item in movies">
+                <b-card
+                    :title="item.title"
+                    :sub-title="item.stock"
+                    img-src="https://picsum.photos/600/300/?image=25"
+                    img-alt="Image"
+                    img-top
+                    tag="article"
+                    style="max-width: 20rem;"
+                    class="mb-2"
+                    >
+                    <b-card-text>
+                    We hope you enjoy your movie experience
+                    </b-card-text>
+
+                    <b-button v-on:click="onRemove(item)" variant="primary">Remove</b-button>
+                    </b-card>   
+             </li>
 
              <b-button> Checkout </b-button>
+           
          </div>
 
 
@@ -31,18 +44,17 @@ import axios from 'axios'
       }
     },
     methods: {
-        onRemove: function (){
-            console.log(this.movie.mid)
-            axios.post('http://localhost:3000/moviecatalog/delete', {mid: this.movies.mid})
+        onRemove: function (env){
+            console.log("This function was called")
+            console.log(env)
+            axios.post('http://localhost:3000/moviecatalog/delete', {mid: env.mid})
                  .then(response => {
-                     if(response.data === 1){
-                         alert("Successfully deleted from shopping cart")
-                     }
-
-                     if(response.data === 0){
-                         alert("Removal unsuccessful")
-                     }
+                     alert("Successfuly removed from cart")
                  })
+        },
+
+        getIndex: function(){
+            return this.movies.mid
         }
     },
 
