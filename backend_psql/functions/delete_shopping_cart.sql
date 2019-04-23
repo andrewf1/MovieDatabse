@@ -11,6 +11,7 @@ row_change integer;
 BEGIN
 	delete from shopping_cart where mid = mid_i;
 	GET DIAGNOSTICS row_change = ROW_COUNT;
-	
+
+	return row_change;
 END;
 $BODY$; 
