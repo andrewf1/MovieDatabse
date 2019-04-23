@@ -42,22 +42,11 @@ import axios from 'axios'
                 
                
             for (let x = 0; x < response.data.rows.length; x++) {
-                // let obj = { title: response.data.rows[x].title_r, stock: response.data.rows[x].stock_r}
-
-                this.movies.push({'title': response.data.rows[x].title_r, 'stock': response.data.rows[x].stock_r })
-                console.log(this.movies)
+                this.movies.push({'title': response.data.rows[x].title_r, 'stock': response.data.rows[x].stock_r, 'mid': response.data.rows[x].mid_r })
+                console.log(this.movies.mid)
             }
-             for (let x = 0; x < response.data.rows.length; x++){
-                //  console.log('This is the value of x' + x)
-                this.movies.title = response.data
-                 console.log(response.data.rows[x].title_r)
-
-            }
-
-            console.log(response.data.rows.map(i => i.title_r));
-                // this.movies.title = response.data.rows[0].title_r
-                // this.movies.stock = response.data.rows[0].stock_r
-            })
+             
+        })
     }
     
 }
