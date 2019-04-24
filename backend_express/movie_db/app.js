@@ -77,6 +77,22 @@ app.get('/session', (req, res) => {
   })
 })
 
+//Retrieves the users information
+app.post('/userinfo', (req, res) => {
+  console.log("This is a big body " + req.body.email)
+  //console.log("This is the email from the front end " + req.body.email)
+  const email = [req.body.email]
+  client.query('Select fname_r, lname_r from get_customer_info($1::varchar)', email, (err, result) => {
+    if(err){
+      console.log(err)
+    }
+    else {
+      console.log(result)
+      res.send(result.rows[0])
+      }
+  })
+})
+
 //Endpoint should recieve email and password from the frontend
 app.post('/login',(req, res) => {
   console.log(req.body)
@@ -97,7 +113,6 @@ app.post('/login',(req, res) => {
     //client.end()
   })
 })
-
 
 //Listen for requests
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
