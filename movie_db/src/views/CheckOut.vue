@@ -56,16 +56,9 @@ import axios from 'axios'
             return this.movies.mid
         },
 
+//Function will be executed when the user hits the check out button
         checkout: function(){
-        //Checks how many movies are rented out
-        axios.post('http://localhost:3000/checkout/moviesrented', {email: this.email})
-            .then(response => {
-                console.log("Are there too many movies checked out? " + response.data.result)
-                if(response.data.result === true){
-                    alert("You have too many movies checked out")
-                }
-            })
-
+            //Checks to see if any movies in his cart are out of stock
             for (let i = 0; i < this.movies2.length; i++){
                 axios.post('http://localhost:3000/checkout', {mid: this.movies2[i].mid})
                 .then(response => { 
@@ -73,7 +66,24 @@ import axios from 'axios'
                     alert(response.data.title + " is out of stock")
                     }
 
+                    //The movie is not out of stock, so now check if they can rent it out
                      else if(response.data.bool === true){
+                        //Checks how many movies are rented out
+                            axios.post('http://localhost:3000/checkout/moviesrented', {email: this.email})
+                             .then(result => {
+                              console.log("Are there too many movies checked out? " + result.data.result + response.data.title)
+                             if(result.data.result === true){
+                                alert("You have too many movies checked out")
+                                }
+                                //The user should now be able to check out the specific movie
+                                else{
+                                    //Add the movie to the purchase history
+                                    axios.post('http://localhost:3000/checkout/addhistory', {email: this.email, mid: this.movies2[i].mid})
+                                    .then(added => {
+                                        console.log("The movie was added" + response.data.title + added)
+                                    })
+                                }
+                            })
                      }
                 })
             }

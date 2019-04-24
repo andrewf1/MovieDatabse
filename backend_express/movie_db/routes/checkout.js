@@ -51,7 +51,7 @@ router.post('/', (req, res) => {
   })
 })
 
-//Ensuring user does not have 3 movies checked Router
+//Ensuring user does not have 3 movies checked out
 router.post('/moviesrented', (req, res) => {
   console.log(req.body.email)
   client.query('Select * from more_than_three_movies($1::varchar)', [req.body.email], (err, result) => {
@@ -77,7 +77,6 @@ router.post('/addhistory', (req, res) => {
     if(err){
       console.log(err)
     }
-
     else {
       res.send({num: result.rows[0].insert_purchase_history })
     }
