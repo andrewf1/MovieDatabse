@@ -114,5 +114,35 @@ app.post('/login',(req, res) => {
   })
 })
 
+//Checks to see if user is a reward member
+app.post('/rewardmember', (req, res) => {
+  console.log(req.body)
+  const email = [req.body.email]
+  client.query('Select * from is_not_reward_member($1::varchar)', email, (err, result) => {
+    console.log(result.rows[0].is_not_reward_member)
+    if(err){
+      console.log(err)
+    }
+
+    else{
+      res.send(result.rows[0].is_not_reward_member)
+      }
+  })
+})
+
+//Add reward is_not_reward_member
+app.post('/addmember', (req, res) => {
+  console.log(req.body)
+  const email = [req.body.email]
+  client.query('Select * from insert_reward_member($1::varchar)', email, (err, result) => {
+    if(err){
+      console.log(err)
+    }
+
+    console.log(result)
+
+  })
+})
+
 //Listen for requests
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))

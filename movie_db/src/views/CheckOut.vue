@@ -46,9 +46,8 @@ import axios from 'axios'
     methods: {
         onRemove: function (env){
             axios.post('http://localhost:3000/moviecatalog/delete', {mid: env.mid})
-                 .then(response => {
                      alert("Successfuly removed from cart")
-                 })
+                 
         },
         getIndex: function(){
             return this.movies.mid

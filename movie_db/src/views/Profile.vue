@@ -1,6 +1,8 @@
 <template>
     <div>
         <h1> Welcome, {{user.fname}} {{user.lname}} </h1>
+
+        <b-button v-if="show" v-on:click="reward"> Become reward memeber? </b-button>
     
     </div>
     
@@ -14,8 +16,10 @@ export default {
             user: {
                 email: '',
                 fname: '',
-                lname: ''
-            }
+                lname: '',
+                
+            },
+            show: false
         }
     },
     mounted: function (){
@@ -24,15 +28,27 @@ export default {
 
             axios.post('http://localhost:3000/userinfo', {email: this.user.email})
             .then(response => {
-                console.log("This is the email " + this.user.email)
-                console.log("This is the response " + response.data.fname_r)
                 this.user.fname = response.data.fname_r
                 this.user.lname = response.data.lname_r
+
+                
+                axios.post('http://localhost:3000/rewardmember', {email: this.user.email})
+                .then(response => {
+                    this.show = response.data;
+                })
+            
             })
+ 
         }) 
 
-        
-    }
+    },
+
+    methods: {
+        reward: function() {
+            axios.post('http://localhost:3000/addmember', {email: this.user.email})
+                alert("You are now a Movie Bro's reward member")
+        }
+    },
 
     
 }
