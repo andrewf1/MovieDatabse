@@ -24,7 +24,6 @@ CREATE TABLE movie
 CREATE TABLE reward_member
 (
 	email VARCHAR(50) NOT NULL, 
-	points INT NOT NULL CHECK (points > 0),
 	PRIMARY KEY (email),
 	FOREIGN KEY (email) REFERENCES customer (email)
 	ON UPDATE CASCADE
