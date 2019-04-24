@@ -68,6 +68,22 @@ router.post('/moviesrented', (req, res) => {
   })
 })
 
+//Adding movie into the purchase history
+router.post('/addhistory', (req, res) => {
+  console.log(req.body)
+
+  client.query('Select * from insert_purchase_history($1::varchar, $2::integer)', [req.body.email, req.body.mid], (err, result) => {
+    console.log(result.rows[0].insert_purchase_history)
+    if(err){
+      console.log(err)
+    }
+
+    else {
+      res.send({num: result.rows[0].insert_purchase_history })
+    }
+  })
+})
+
 
 
 module.exports = router;
