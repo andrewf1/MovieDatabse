@@ -51,13 +51,21 @@ import axios from 'axios'
         onRemove: function (env){
             axios.post('http://localhost:3000/moviecatalog/delete', {mid: env.mid})
                      alert("Successfuly removed from cart")
-                 
         },
         getIndex: function(){
             return this.movies.mid
         },
 
         checkout: function(){
+        //Checks how many movies are rented out
+        axios.post('http://localhost:3000/checkout/moviesrented', {email: this.email})
+            .then(response => {
+                console.log("Are there too many movies checked out? " + response.data.result)
+                if(response.data.result === true){
+                    alert("You have too many movies checked out")
+                }
+            })
+
             for (let i = 0; i < this.movies2.length; i++){
                 axios.post('http://localhost:3000/checkout', {mid: this.movies2[i].mid})
                 .then(response => { 
@@ -69,6 +77,16 @@ import axios from 'axios'
                      }
                 })
             }
+        },
+    //Function to check if user has more than 3 movies checked out
+        movierental: function(){
+            axios.post('http://localhost:3000/checkout/moviesrented', {email: this.email})
+            .then(response => {
+                console.log(response.data.result)
+                if(response.data.result === true){
+                    alert("You have too many movies checked out")
+                }
+            })
         }
 
     },

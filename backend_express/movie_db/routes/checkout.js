@@ -51,6 +51,23 @@ router.post('/', (req, res) => {
   })
 })
 
+//Ensuring user does not have 3 movies checked Router
+router.post('/moviesrented', (req, res) => {
+  console.log(req.body.email)
+  client.query('Select * from more_than_three_movies($1::varchar)', [req.body.email], (err, result) => {
+    console.log(result.rows[0])
+    if(result == true){
+      console.log("They have more than 3 movies checkedout")
+      res.send({result: result.rows[0].more_than_three_movies})
+    }
+
+    else{
+      console.log("They have less than 3 movies checkedOut")
+      res.send({result: result.rows[0].more_than_three_movies})
+    }
+  })
+})
+
 
 
 module.exports = router;
