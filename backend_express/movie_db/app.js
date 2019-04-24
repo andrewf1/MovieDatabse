@@ -7,6 +7,7 @@ const userRoute = require('./routes/users')
 const catalog = require('./routes/moviecatalog')
 const app = express()
 const port = 3000
+let email = ''
 
 //Routes to be handled
 app.use('/signup', signup)
@@ -52,14 +53,27 @@ client.connect()
 // })
 
 
-// Endpoint for the login page
-app.get('/', (req, res) => res.send('Hello World!'))
 
+//So we can track which user is logged in
 app.post('/', (req, res) => {
-  console.log(req.body)
-  res.send({
-    name: req.body.name,
-    password: req.body.password
+  console.log("tracking the email " + req.body.email)
+  const user = [req.body.email]
+  client.query('Insert into session(email) values($1)',user, (err, result) => {
+    console.log("Inserted into the sessions db" + result)
+  })
+})
+
+//Returns the logged in user
+app.get('/session', (req, res) => {
+  client.query('Select * from session', (err, result) => {
+    if(err){
+      console.log(err)
+    }
+
+    else {
+      console.log(result.rows[0].email)
+      res.send(result.rows[0].email)
+    }
   })
 })
 

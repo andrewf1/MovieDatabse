@@ -108,6 +108,10 @@ import { stringify } from 'querystring';
 
         })
 
+        axios.post('http://localhost:3000',{
+          email: this.form.email
+        })
+
 
       },
     }
