@@ -43,12 +43,7 @@ import axios from 'axios'
       return {
         email: '',
         movies: [],
-        movie1: '',
-        movie2: '',
-        movie3: '',
-        bool1: true,
-        bool2: true,
-        bool3: true,
+        movies2: [],
         price: '5.99',
         checkoutPrice: ''
       }
@@ -65,7 +60,7 @@ import axios from 'axios'
         },
 
         checkout: function(){
-            return 'ashton'
+            app.post('http://localhost:3000/moviecatalog/delete')
 
         }
 
@@ -81,19 +76,15 @@ import axios from 'axios'
 
            //We need to individually store the mid, so we can update the movies on checkout 
               if(response.data.rows[0]){
-                    this.movie1 = response.data.rows[x].mid_r
-                    console.log("This is the mid for the first movie " + this.movie1)
+                    this.movies2.push({'mid': response.data.rows[x].mid_r})
                 }
 
                else if(response.data.rows[1]){
-                    this.movie2 = response.data.rows[x].mid_r
-                    console.log("This is the mid for the second movie " + this.movie2)
+                    this.movies2.push({'mid': response.data.rows[x].mid_r})
                 }
 
                 else if(response.data.rows[2]){
-                    this.movie3 = response.data.rows[x].mid_r
-                    console.log("This is the mid for the third movie " + this.movie3)
-
+                    this.movies2.push({'mid': response.data.rows[x].mid_r})
                 }
             }
 
