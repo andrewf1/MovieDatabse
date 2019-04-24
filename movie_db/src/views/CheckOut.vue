@@ -26,7 +26,7 @@
                     </b-card>   
              </li>
 
-             <b-button> Checkout Price: ${{checkoutPrice}} </b-button>
+             <b-button v-on:click="checkout()"> Checkout Price: ${{checkoutPrice}} </b-button>
            
          </div>
 
@@ -60,8 +60,14 @@ import axios from 'axios'
         },
 
         checkout: function(){
-            app.post('http://localhost:3000/moviecatalog/delete')
-
+            console.log("This function successfully ran")
+            for (let i = 0; i < this.movies2.length; i++){
+                console.log("This is the movie mid we are on " + this.movies2[i].mid)
+                axios.post('http://localhost:3000/checkout', {mid: this.movies2[i].mid})
+                .then(response => { 
+                    console.log(response)
+                })
+            }
         }
 
     },
