@@ -2,7 +2,8 @@
     <div class="background" align="center">
         <div>
             <h1 class="header"> Checkout page </h1>
-            <h2> Every movie is $5.99 </h2>
+            <h2> Every movie is ${{price}}</h2>
+            <h3> Reward members recieve a 15% discount </h3>
          </div>
         
          <div class="cards" align="center"> 
@@ -25,7 +26,7 @@
                     </b-card>   
              </li>
 
-             <b-button> Checkout </b-button>
+             <b-button> Checkout Price: ${{checkoutPrice}} </b-button>
            
          </div>
 
@@ -40,7 +41,10 @@ import axios from 'axios'
   export default {
     data() {
       return {
-        movies: []
+        email: '',
+        movies: [],
+        price: '5.99',
+        checkoutPrice: ''
       }
     },
     methods: {
@@ -51,7 +55,8 @@ import axios from 'axios'
         },
         getIndex: function(){
             return this.movies.mid
-        }
+        },
+
     },
 
     mounted: function(){
@@ -60,6 +65,30 @@ import axios from 'axios'
             for (let x = 0; x < response.data.rows.length; x++) {
                 this.movies.push({'title': response.data.rows[x].title_r, 'stock': response.data.rows[x].stock_r, 'mid': response.data.rows[x].mid_r })
             }
+
+            //Setting checkout price
+                if(response.data.rows.length == 0){
+                    this.checkoutPrice = 0.00;
+                }
+
+                else{
+                    axios.get('http://localhost:3000/session')
+                    .then(getEmail => {
+                        this.email = getEmail.data
+
+                    axios.post('http://localhost:3000/rewardmember', {email: this.email})
+                        .then(rmember => {
+                            if(!rmember.data) {
+                                const fiftenPercent = response.data.rows.length * this.price * 0.15
+                                const payment = (response.data.rows.length * this.price) - fiftenPercent           
+                            }
+                            else { 
+                                const payme = response.data.rows.length * this.price
+                                this.checkoutPrice = payme.toFixed(2)                
+                            }
+                        })
+                    })
+                }
         })
     }
     

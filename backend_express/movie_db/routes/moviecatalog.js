@@ -34,6 +34,7 @@ router.get('/shoppingcart', (req, res) => {
   })
 })
 
+//Responsoble for deleting an item from the shopping cart
 router.post('/delete', (req, res) => {
   console.log(req.body.mid)
   const mid = [req.body.mid]

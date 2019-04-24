@@ -11,11 +11,11 @@
 
         </div>
 
-        <div>
-            <h1> Update Your info </h1>
-
+        <h1 class="header"> Update Your info </h1>
+        <div class="update"> 
+        
             <div class="forms">
-                <h2 class="subheader"> Update your email </h2>
+                <h4 class="subheader"> Update your email </h4>
                 <b-form @submit="onSubmitEmail" v-if="display">
                 <b-form-group
                     id="input-group-1"
@@ -35,7 +35,7 @@
                 </b-form>
             </div>
             <div class="forms">
-                <h2> Update your password </h2>
+                <h4 class="subheader"> Update your password </h4>
                 <b-form @submit="onSubmitPassword" v-if="display">
                 <b-form-group
                     id="input-group-1"
@@ -56,8 +56,8 @@
 
             <div class="forms">
 
-                <h2> Update your address </h2>
-                 <b-form @submit="onSubmitAddress" v-if="display">
+                <h4 class="subheader"> Update your address </h4>
+                 <b-form @submit="onSubmitAddress" v-if="display" class="bforms">
                 <b-form-group
                     id="input-group-1"
                     label="Address:"
@@ -166,15 +166,22 @@ export default {
 
 <style scoped>
 .forms{
-    padding: 10vm;
-    background-color: aqua;
-    min-block-size: 20vh;
+    min-block-size: 30vh;
 }
 
 .subheader{
     padding-top: 10vm;
     padding-bottom: 10vm;
-    max-width: 800px;
+}
+
+
+
+.update{
+    display: inline-block;
+}
+
+.header{
+    padding-bottom: 10vm;
 }
 
 </style>
