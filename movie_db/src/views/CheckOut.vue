@@ -43,11 +43,18 @@ import axios from 'axios'
       return {
         email: '',
         movies: [],
+        movie1: '',
+        movie2: '',
+        movie3: '',
+        bool1: true,
+        bool2: true,
+        bool3: true,
         price: '5.99',
         checkoutPrice: ''
       }
     },
     methods: {
+        //Function to remove movie from the cart
         onRemove: function (env){
             axios.post('http://localhost:3000/moviecatalog/delete', {mid: env.mid})
                      alert("Successfuly removed from cart")
@@ -57,13 +64,37 @@ import axios from 'axios'
             return this.movies.mid
         },
 
+        checkout: function(){
+            return 'ashton'
+
+        }
+
     },
 
     mounted: function(){
+        //Function to load items from the shopping cart onto the page
         axios.get('http://localhost:3000/moviecatalog/shoppingcart')
-            .then(response => {            
+            .then(response => {       
+  
             for (let x = 0; x < response.data.rows.length; x++) {
                 this.movies.push({'title': response.data.rows[x].title_r, 'stock': response.data.rows[x].stock_r, 'mid': response.data.rows[x].mid_r })
+
+           //We need to individually store the mid, so we can update the movies on checkout 
+              if(response.data.rows[0]){
+                    this.movie1 = response.data.rows[x].mid_r
+                    console.log("This is the mid for the first movie " + this.movie1)
+                }
+
+               else if(response.data.rows[1]){
+                    this.movie2 = response.data.rows[x].mid_r
+                    console.log("This is the mid for the second movie " + this.movie2)
+                }
+
+                else if(response.data.rows[2]){
+                    this.movie3 = response.data.rows[x].mid_r
+                    console.log("This is the mid for the third movie " + this.movie3)
+
+                }
             }
 
             //Setting checkout price
@@ -71,6 +102,7 @@ import axios from 'axios'
                     this.checkoutPrice = 0.00;
                 }
 
+            //Handling checkout price for memebers and non reward members
                 else{
                     axios.get('http://localhost:3000/session')
                     .then(getEmail => {
