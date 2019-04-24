@@ -1,8 +1,85 @@
 <template>
     <div>
-        <h1> Welcome, {{user.fname}} {{user.lname}} </h1>
+        <div>
+            <h1> Welcome, {{user.fname}} {{user.lname}} </h1>
 
-        <b-button v-if="show" v-on:click="reward"> Become reward memeber? </b-button>
+             <b-button v-if="show" v-on:click="reward"> Become reward memeber? </b-button>
+        </div>
+
+        <div>
+            <h1> Your purchase history </h1>
+
+        </div>
+
+        <div>
+            <h1> Update Your info </h1>
+
+            <div class="forms">
+                <h2 class="subheader"> Update your email </h2>
+                <b-form @submit="onSubmitEmail" v-if="display">
+                <b-form-group
+                    id="input-group-1"
+                    label="Email address:"
+                    label-for="input-1"
+                    description="We'll never share your email with anyone else."
+                >
+                    <b-form-input
+                    id="input-1"
+                    v-model="form1.email"
+                    type="email"
+                    required
+                    placeholder="Enter new email"
+                    ></b-form-input>
+                </b-form-group>
+                <b-button type="submit" variant="primary">Update</b-button>
+                </b-form>
+            </div>
+            <div class="forms">
+                <h2> Update your password </h2>
+                <b-form @submit="onSubmitPassword" v-if="display">
+                <b-form-group
+                    id="input-group-1"
+                    label="Password:"
+                    label-for="input-1"
+                >
+                    <b-form-input
+                    id="input-1"
+                    v-model="form2.password"
+                    type="password"
+                    required
+                    placeholder="Enter new password"
+                    ></b-form-input>
+                </b-form-group>
+                <b-button type="submit" variant="primary">Update</b-button>
+                </b-form>
+            </div>
+
+            <div class="forms">
+
+                <h2> Update your address </h2>
+                 <b-form @submit="onSubmitAddress" v-if="display">
+                <b-form-group
+                    id="input-group-1"
+                    label="Address:"
+                    label-for="input-1"
+                >
+                    <b-form-input
+                    id="input-1"
+                    v-model="form3.address"
+                    type="address"
+                    required
+                    placeholder="Enter new address"
+                    ></b-form-input>
+                </b-form-group>
+                <b-button type="submit" variant="primary">Update</b-button>
+                </b-form>
+            </div>
+
+
+
+
+        
+        </div>
     
     </div>
     
@@ -17,8 +94,22 @@ export default {
                 email: '',
                 fname: '',
                 lname: '',
-                
             },
+
+            form1: {
+                email: '',
+            },
+
+            form2: {
+                password: ''
+            },
+
+            form3: {
+                address: ''
+            },
+
+            display: true,
+        
             show: false
         }
     },
@@ -55,5 +146,14 @@ export default {
 </script>
 
 <style scoped>
+.forms{
+    padding: 10vm;
+    background-color: aqua;
+}
+
+.subheader{
+    padding-top: 10vm;
+    padding-bottom: 10vm;
+}
 
 </style>
