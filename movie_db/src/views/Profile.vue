@@ -138,6 +138,25 @@ export default {
         reward: function() {
             axios.post('http://localhost:3000/addmember', {email: this.user.email})
                 alert("You are now a Movie Bro's reward member")
+        },
+
+        onSubmitEmail: function(){
+            axios.post('http://localhost:3000/profile/updateemail', {oldemail: this.user.email , newemail: this.form1.email})
+                 .then(response => {
+                     console.log(response)
+                     this.user.email = response.data
+                 })
+
+        },
+
+        onSubmitPassword: function(){
+             axios.post('http://localhost:3000/profile/updatepassword', {email: this.user.email , password: this.form2.password})
+
+        },
+
+        onSubmitAddress: function (){
+              axios.post('http://localhost:3000/profile/updateaddress', {email: this.user.email , address: this.form3.address})
+
         }
     },
 
@@ -149,11 +168,13 @@ export default {
 .forms{
     padding: 10vm;
     background-color: aqua;
+    min-block-size: 20vh;
 }
 
 .subheader{
     padding-top: 10vm;
     padding-bottom: 10vm;
+    max-width: 800px;
 }
 
 </style>

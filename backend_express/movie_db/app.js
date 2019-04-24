@@ -5,6 +5,7 @@ const bodyParser = require('body-parser')
 const signup = require('./routes/signup')
 const userRoute = require('./routes/users')
 const catalog = require('./routes/moviecatalog')
+const profile = require('./routes/profile')
 const app = express()
 const port = 3000
 let email = ''
@@ -13,6 +14,7 @@ let email = ''
 app.use('/signup', signup)
 app.use('/users', userRoute)
 app.use('/moviecatalog', catalog)
+app.use('/profile', profile)
 
 //Body bodyParse
 app.use(bodyParser.json())
