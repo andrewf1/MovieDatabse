@@ -10,7 +10,6 @@
              <li v-for="item in movies">
                 <b-card
                     :title="item.title"
-                    :sub-title="item.stock"
                     img-src="https://picsum.photos/600/300/?image=25"
                     img-alt="Image"
                     img-top
@@ -25,7 +24,6 @@
                     <b-button v-on:click="onRemove(item)" variant="primary">Remove</b-button>
                     </b-card>   
              </li>
-
              <b-button v-on:click="checkout()"> Checkout Price: ${{checkoutPrice}} </b-button>
            
          </div>
@@ -60,12 +58,15 @@ import axios from 'axios'
         },
 
         checkout: function(){
-            console.log("This function successfully ran")
             for (let i = 0; i < this.movies2.length; i++){
-                console.log("This is the movie mid we are on " + this.movies2[i].mid)
                 axios.post('http://localhost:3000/checkout', {mid: this.movies2[i].mid})
                 .then(response => { 
-                    console.log(response)
+                    if(response.data.bool === false){
+                    alert(response.data.title + " is out of stock")
+                    }
+
+                     else if(response.data.bool === true){
+                     }
                 })
             }
         }
