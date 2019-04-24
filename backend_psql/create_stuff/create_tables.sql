@@ -54,9 +54,9 @@ CREATE TABLE shopping_cart
 );
 
 CREATE TABLE session
-{
+(
 	email VARCHAR NOT NULL,
 	PRIMARY KEY (email),
 	FOREIGN KEY (email) REFERENCES customer (email)
 	ON UPDATE CASCADE ON DELETE CASCADE
-};
+);
