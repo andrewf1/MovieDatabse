@@ -54,13 +54,14 @@ router.post('/updateaddress', (req, res) => {
 
 //Used to obtain movies in purchase history
 router.post('/gethistory', (req, res) => {
-  console.log(req.body)
-  client.query('Select * from purchase_history where email ', [req.body.email], (err,response) => {
+  console.log(req.body.email)
+  client.query('Select * from get_all_returned_movies($1::varchar) ', [req.body.email], (err,response) => {
     if(err){
       console.log(err)
     }
 
-    console.log(response)
+    console.log(response.rows)
+    res.send(response.rows)
   })
 })
 

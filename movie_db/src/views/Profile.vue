@@ -42,7 +42,7 @@
                     <b-card-text>
                         We hope you enjoyed watching this movie
                     </b-card-text>
-                    <b-button> Return Movie </b-button>
+                    <b-button v-on:click="moviereturn(item)"> Return Movie </b-button>
                     </b-card>   
                 </li>
              </div>
@@ -167,14 +167,21 @@ export default {
         axios.post('http://localhost:3000/profile/returnmovie', {email: this.user.email})
         .then(reply => {
             for(let x = 0; x < reply.data.length; x++){
-                this.returnMovies.push({'mid': reply.data[x].mid_r, 'title': reply.data[x].title_r, 'duedate': response.data[x].due_date_r, 'rentdate': response.data[x].date_rented_r})
+                this.returnMovies.push({'mid': reply.data[x].mid_r, 'title': reply.data[x].title_r, 'duedate': response.data[x].due_date_r, 'rentdate': response.data[x].date_rented_r, 'transaction': reply.data[x].transaction_num_r})
             }
             
         })
 
+        axios.post('http://localhost:3000/profile/gethistory', {email: this.user.email})
+        .then(replied => {
+            for(let x = 0; x < replied.data.length; x++){
+                this.movies.push({'title': replied.data[x].title_r})
+            }
+        })
+
 
  
-        }) 
+    }) 
     //This will obtain the movies currently rented out that need to be returned
        
     //This will obtain the purchase history
@@ -202,8 +209,15 @@ export default {
         onSubmitAddress: function (){
               axios.post('http://localhost:3000/profile/updateaddress', {email: this.user.email , address: this.form3.address})
 
+        },
+
+        moviereturn: function(){
+            axios.post('http://localhost:3000/profile/returnmovie', {email: this.email, mid: this.returnMovies.mid, rentdate: this.returnMovies.rentdate})
         }
+        
+
     },
+
 
     
 }
