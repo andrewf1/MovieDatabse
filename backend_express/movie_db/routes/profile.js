@@ -59,7 +59,6 @@ router.post('/gethistory', (req, res) => {
     if(err){
       console.log(err)
     }
-
     console.log(response.rows)
     res.send(response.rows)
   })
@@ -77,6 +76,30 @@ router.post('/returnmovie', (req, res) => {
     else{
       console.log(response.rows)
       res.send(response.rows)
+    }
+  })
+})
+
+//Used to update the purchase history
+router.post('/updatepurchase', (req, res) => {
+  console.log(req.body)
+  client.query('Select * from update_return_date($1::integer)', [req.body.transaction], (err, result) => {
+    if(err){
+      console.log(err)
+    }
+    else{
+      console.log(result.rows[0].update_return_date)
+      res.send({num: result.rows[0].update_return_date})
+    }
+  })
+})
+
+//Used to increment the stock when a user returns a movies
+router.post('/incrementstock', (req, res) => {
+  console.log(req.body)
+  client.query('Select * from increment_movie_stock(:$1::integer)', [req.body.mid], (err, result) => {
+    if(err){
+      console.log(err)
     }
   })
 })

@@ -211,8 +211,20 @@ export default {
 
         },
 
-        moviereturn: function(){
-            axios.post('http://localhost:3000/profile/returnmovie', {email: this.email, mid: this.returnMovies.mid, rentdate: this.returnMovies.rentdate})
+        moviereturn: function(env){
+            axios.post('http://localhost:3000/profile/updatepurchase', {transaction: env.transaction})
+            .then(reply => {
+                console.log('This is the transaction id ' + env.transaction)
+                console.log(reply.data.num)
+                console.log('This function ran')
+                if(reply.data.num === 1){
+                    alert('Movie returned')
+                }
+            })
+
+            axios.post('http://localhost:3000/profile/incrementstock', {mid: env.mid})
+
+
         }
         
 

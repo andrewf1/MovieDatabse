@@ -151,7 +151,8 @@ import axios from 'axios'
                         .then(rmember => {
                             if(!rmember.data) {
                                 const fiftenPercent = response.data.rows.length * this.price * 0.15
-                                const payment = (response.data.rows.length * this.price) - fiftenPercent           
+                                const payment = (response.data.rows.length * this.price) - fiftenPercent  
+                                this.checkoutPrice = payment.toFixed(2)        
                             }
                             else { 
                                 const payme = response.data.rows.length * this.price

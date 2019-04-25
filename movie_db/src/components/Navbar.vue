@@ -18,7 +18,7 @@
           <template slot="button-content"><em>User</em></template>
           <b-dropdown-item to='profile'>Profile</b-dropdown-item>
           <b-dropdown-item href="#">Checkout</b-dropdown-item>
-          <b-dropdown-item href="/home">Sign Out</b-dropdown-item>
+          <b-dropdown-item href="/home" v-on:click="signout()">Sign Out</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </b-collapse>
@@ -27,6 +27,27 @@
 </template>
 
 <script>
+import axios from 'axios'
+export default {
+  data (){
+    return {
+
+    }
+  },
+
+  methods: {
+    signout: function (){
+      console.log("This function was called on the button click")
+      axios.post('http://localhost:3000/checkout/clearcart')
+      axios.post('http://localhost:3000/signout')
+
+    }
+  }
+
+  
+
+
+}
 
 
 </script>

@@ -148,5 +148,17 @@ app.post('/addmember', (req, res) => {
   })
 })
 
+//On signout we want to delete the user from the session
+app.post('/signout', (req, res) => {
+  console.log("The function was called")
+  client.query('Delete from session', (err, result) => {
+    if(err){
+      console.log(err)
+    }
+  })
+
+
+})
+
 //Listen for requests
 app.listen(port, () => console.log(`Example app listening on port ${port}!`))
