@@ -20,7 +20,7 @@ client.connect()
 router.post('/', (req, res) => {
 
   console.log(req.body)
-  const address = req.body.address + req.body.city + ', ' + req.body.state + req.body.zipcode
+  const address = req.body.address + ' ' + req.body.city + ', ' + req.body.state + ' ' + req.body.zipcode
   const signup = [req.body.firstname, req.body.lastname, req.body.email, req.body.dob, address, req.body.password]
   client.query('Select * from insert_customer ($1::varchar, $2::varchar, $3::varchar, $4::date, $5::varchar, $6::varchar)', signup, (err, results) => {
   console.log("This is the response " + results)

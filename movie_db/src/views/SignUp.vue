@@ -86,6 +86,7 @@
           id="input-2"
           v-model="form.password"
           required
+          type="password"
           placeholder="Enter Password"
         ></b-form-input>
       </b-form-group>
@@ -94,6 +95,7 @@
         <b-form-input
           id="input-2"
           v-model="form.confirmpassword"
+          type="password"
           required
           placeholder="Confirm Password"
         ></b-form-input>
