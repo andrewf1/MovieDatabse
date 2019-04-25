@@ -8,6 +8,23 @@
 
         <div>
             <h1> Your purchase history </h1>
+             <div class="cards" align="center"> 
+                <li v-for="item in movies">
+                    <b-card
+                        :title="item.title"
+                        img-src="https://picsum.photos/600/300/?image=25"
+                        img-alt="Image"
+                        img-top
+                        tag="article"
+                        style="max-width: 20rem;"
+                        class="mb-2"
+                        >
+                        <b-card-text>
+                        We hope you enjoyed watching this movie
+                        </b-card-text>
+                        </b-card>   
+                </li>
+             </div>
 
         </div>
 
@@ -74,15 +91,8 @@
                 <b-button type="submit" variant="primary">Update</b-button>
                 </b-form>
             </div>
-
-
-
-
-        
         </div>
-    
     </div>
-    
 </template>
  
 <script>
@@ -90,6 +100,8 @@ import axios from 'axios'
 export default {
     data (){
         return {
+            movies: [],
+
             user: {
                 email: '',
                 fname: '',
@@ -113,7 +125,8 @@ export default {
             show: false
         }
     },
-    mounted: function (){
+    mounted: 
+    function (){
         axios.get('http://localhost:3000/session').then(response => {
             this.user.email = response.data
 
@@ -133,6 +146,14 @@ export default {
         }) 
 
     },
+    
+    //Function to load the purchase history
+    function() {
+        axios.post('http://localhost:3000/profile/gethistory', {email: this.user.email})
+        .then(response => {this.movies.push({})
+        })
+
+    },
 
     methods: {
         reward: function() {
@@ -142,16 +163,11 @@ export default {
 
         onSubmitEmail: function(){
             axios.post('http://localhost:3000/profile/updateemail', {oldemail: this.user.email , newemail: this.form1.email})
-                 .then(response => {
-                     console.log(response)
-                     this.user.email = response.data
-                 })
-
+                 .then(response => {this.user.email = response.data})
         },
 
         onSubmitPassword: function(){
              axios.post('http://localhost:3000/profile/updatepassword', {email: this.user.email , password: this.form2.password})
-
         },
 
         onSubmitAddress: function (){
@@ -174,8 +190,6 @@ export default {
     padding-bottom: 10vm;
 }
 
-
-
 .update{
     display: inline-block;
 }
@@ -183,5 +197,4 @@ export default {
 .header{
     padding-bottom: 10vm;
 }
-
 </style>

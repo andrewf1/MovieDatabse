@@ -52,6 +52,13 @@ router.post('/updateaddress', (req, res) => {
     })
 })
 
+//Used to obtain movies in purchase history
+router.post('/gethistory', (req, res) => {
+  console.log(req.body)
+  client.query('Select * from purchase_history where email ')
+})
+
+
 
 
 

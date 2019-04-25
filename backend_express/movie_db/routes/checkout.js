@@ -83,6 +83,24 @@ router.post('/addhistory', (req, res) => {
   })
 })
 
+//Updating the movie stocks
+router.post('/updatestock', (req, res) => {
+  console.log(req.body)
+  client.query('Select * from update_movie_stock($1::integer)',[req.body.mid], (err, result) => {
+    console.log(result)
+  })
+})
+
+//Clear the shopping cart
+router.post('/clearcart', (req, res) => {
+  console.log(req.body)
+  client.query('Delete from shopping_cart', (err, result) =>{
+    if(err)
+      console.log(err)
+  })
+})
+
+
 
 
 module.exports = router;

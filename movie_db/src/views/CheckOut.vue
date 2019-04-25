@@ -25,12 +25,7 @@
                     </b-card>   
              </li>
              <b-button v-on:click="checkout()"> Checkout Price: ${{checkoutPrice}} </b-button>
-           
          </div>
-
-
-
-         
     </div>
 </template>
 
@@ -58,36 +53,56 @@ import axios from 'axios'
 
 //Function will be executed when the user hits the check out button
         checkout: function(){
-            //Checks to see if any movies in his cart are out of stock
-            for (let i = 0; i < this.movies2.length; i++){
-                axios.post('http://localhost:3000/checkout', {mid: this.movies2[i].mid})
-                .then(response => { 
-                    if(response.data.bool === false){
-                    alert(response.data.title + " is out of stock")
-                    }
 
-                    //The movie is not out of stock, so now check if they can rent it out
-                     else if(response.data.bool === true){
-                        //Checks how many movies are rented out
-                            axios.post('http://localhost:3000/checkout/moviesrented', {email: this.email})
-                             .then(result => {
-                              console.log("Are there too many movies checked out? " + result.data.result + response.data.title)
-                             if(result.data.result === true){
-                                alert("You have too many movies checked out")
-                                }
-                                //The user should now be able to check out the specific movie
-                                else{
-                                    //Add the movie to the purchase history
-                                    axios.post('http://localhost:3000/checkout/addhistory', {email: this.email, mid: this.movies2[i].mid})
-                                    .then(added => {
-                                        console.log("The movie was added" + response.data.title + added)
-                                    })
-                                }
-                            })
-                     }
-                })
+//Check to see if more than 3 movies are checked out at once
+            axios.post('http://localhost:3000/checkout/moviesrented', {email: this.email})
+            .then(result => { 
+                console.log("Are there too many movies checked out? " + result.data.result)
+                if(result.data.result === true){
+                    alert("You have too many movies checked out")
             }
-        },
+
+            else{
+                let check1 = true;
+                for(let i = 0; i < this.movies2.length; i++){
+                //Checks to see if the movie is out of stock
+                    axios.post('http://localhost:3000/checkout', {mid: this.movies2[i].mid})
+                    .then(response => { 
+                        if(response.data.bool === false){
+                            alert(response.data.title + " is out of stock. Please remove from shopping cart")
+                            check1 = false;
+                        }
+                    })
+
+                }
+
+                if(check1 === true){
+                    for(let i = 0; i < this.movies2.length; i++){
+                    //Adds the movies to the purchase history
+                        axios.post('http://localhost:3000/checkout/addhistory', {email: this.email, mid: this.movies2[i].mid})
+                        .then(added => {
+                            console.log('The add to history function was called with email = ' + this.email + ' and this mid = ' +
+                            this.movies2[i].mid)
+                            console.log("The movie was added" + added)
+                        })
+
+                    //Decrement the stock for the movies checkedout
+                        console.log('this is the movie we are updating: ' + this.movies2[i].mid)
+                        axios.post('http://localhost:3000/checkout/updatestock', {mid: this.movies2[i].mid})
+                        .then(stocked => {
+                            console.log(stocked.data)
+                        })
+
+
+
+                    }
+                }
+            //Clear the shopping cart
+                axios.post('http://localhost:3000/checkout/clearcart')
+            }
+        })        
+            
+    },
     //Function to check if user has more than 3 movies checked out
         movierental: function(){
             axios.post('http://localhost:3000/checkout/moviesrented', {email: this.email})
