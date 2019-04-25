@@ -7,7 +7,7 @@ CREATE OR REPLACE FUNCTION get_checked_out_movies(email_i varchar)
 AS $BODY$
 
 BEGIN
-	return query select P.transactio_num, P.mid, M.title, P.due_date::date, P.date_rented::date from 
+	return query select P.transaction_num, P.mid, M.title, P.due_date::date, P.date_rented::date from 
 	movie M natural join purchase_history P where email = email_i AND return_date IS NULL;
 END;
 $BODY$;
