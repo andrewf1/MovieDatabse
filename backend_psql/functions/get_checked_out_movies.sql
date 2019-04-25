@@ -1,5 +1,5 @@
 CREATE OR REPLACE FUNCTION get_checked_out_movies(email_i varchar)
-	RETURNS table(transactio_num_r integer, mid_r integer, title_r varchar, due_date_r date, 
+	RETURNS table(transaction_num_r integer, mid_r integer, title_r varchar, due_date_r date, 
 		date_rented_r date)
 	LANGUAGE 'plpgsql'
 	volatile
