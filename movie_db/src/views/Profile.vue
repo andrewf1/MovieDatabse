@@ -26,6 +26,27 @@
                 </li>
              </div>
 
+             <h1> Movies currently checked out </h1>
+             <div class="cards" align="center"> 
+                <li v-for="item in returnMovies" >
+                    <b-card
+                        :title="item.title"
+                        :sub-title="item.returndate"
+                        img-src="https://picsum.photos/600/300/?image=25"
+                        img-alt="Image"
+                        img-top
+                        tag="article"
+                        style="max-width: 20rem;"
+                        class="mb-2"
+                    >
+                    <b-card-text>
+                        We hope you enjoyed watching this movie
+                    </b-card-text>
+                    <b-button> Return Movie </b-button>
+                    </b-card>   
+                </li>
+             </div>
+
         </div>
 
         <h1 class="header"> Update Your info </h1>
@@ -41,7 +62,7 @@
                     description="We'll never share your email with anyone else."
                 >
                     <b-form-input
-                    id="input-1"
+                    id="input-3"
                     v-model="form1.email"
                     type="email"
                     required
@@ -60,7 +81,7 @@
                     label-for="input-1"
                 >
                     <b-form-input
-                    id="input-1"
+                    id="input-2"
                     v-model="form2.password"
                     type="password"
                     required
@@ -83,7 +104,7 @@
                     <b-form-input
                     id="input-1"
                     v-model="form3.address"
-                    type="address"
+                    type="string"
                     required
                     placeholder="Enter new address"
                     ></b-form-input>
@@ -101,7 +122,7 @@ export default {
     data (){
         return {
             movies: [],
-
+            returnMovies: [],
             user: {
                 email: '',
                 fname: '',
@@ -126,7 +147,7 @@ export default {
         }
     },
     mounted: 
-    function (){
+    async function (){
         axios.get('http://localhost:3000/session').then(response => {
             this.user.email = response.data
 
@@ -142,18 +163,26 @@ export default {
                 })
             
             })
- 
-        }) 
 
-    },
-    
-    //Function to load the purchase history
-    function() {
-        axios.post('http://localhost:3000/profile/gethistory', {email: this.user.email})
-        .then(response => {this.movies.push({})
+        axios.post('http://localhost:3000/profile/returnmovie', {email: this.user.email})
+        .then(reply => {
+            for(let x = 0; x < reply.data.length; x++){
+                this.returnMovies.push({'mid': reply.data[x].mid_r, 'title': reply.data[x].title_r, 'duedate': response.data[x].due_date_r, 'rentdate': response.data[x].date_rented_r})
+            }
+            
         })
 
-    },
+
+ 
+        }) 
+    //This will obtain the movies currently rented out that need to be returned
+       
+    //This will obtain the purchase history
+    //     axios.post('http://localhost:3000/profile/gethistory', {email: this.user.e})
+        
+
+     },
+    
 
     methods: {
         reward: function() {

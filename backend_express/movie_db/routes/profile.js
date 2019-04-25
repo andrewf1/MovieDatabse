@@ -55,8 +55,33 @@ router.post('/updateaddress', (req, res) => {
 //Used to obtain movies in purchase history
 router.post('/gethistory', (req, res) => {
   console.log(req.body)
-  client.query('Select * from purchase_history where email ')
+  client.query('Select * from purchase_history where email ', [req.body.email], (err,response) => {
+    if(err){
+      console.log(err)
+    }
+
+    console.log(response)
+  })
 })
+
+//Used to obtain movies that need to be returned
+router.post('/returnmovie', (req, res) => {
+  console.log("This is the users email ---->" + req.body.email)
+  client.query('Select * from get_checked_out_movies($1::varchar) ', [req.body.email], (err,response) => {
+    if(err){
+      console.log(err)
+    }
+
+
+    else{
+      console.log(response.rows)
+      res.send(response.rows)
+    }
+  })
+})
+
+
+
 
 
 
