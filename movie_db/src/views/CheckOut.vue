@@ -92,13 +92,11 @@ import axios from 'axios'
                         .then(stocked => {
                             console.log(stocked.data)
                         })
-
-
-
                     }
                 }
             //Clear the shopping cart
                 axios.post('http://localhost:3000/checkout/clearcart')
+                this.$router.push({path : 'profile'})
             }
         })        
             
